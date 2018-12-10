@@ -1,25 +1,24 @@
 <?php
-//$error=false;
-if(
-	isset($_POST['username']) && 
-	isset($_POST['password'])
-){	
-$server='localhost';
-$username='root';
-$password='';
-$db_name='blog';
-$con=mysqli_connect($server,$username,$password,$db_name);
-
-$user=$_POST['username'];
-$pass=$_POST['password'];
-
-$q="select * from users where email='$user' and password='$pass'";
-$query=mysqli_query($con,$q);
-$row=mysqli_fetch_row($query);
-if($row==null){
-	$error=true;
-}
-mysqli_close($con);
+require_once('helper/database.php');
+if(isset($_POST['username']) && isset($_POST['password'])){	
+  $user=$_POST['username'];
+  $pass=$_POST['password'];
+  $q="select * from users where email='$user' and password='$pass'";
+  $rows=getRows($q);
+  if(count($rows)!=1){
+  	$error=true;
+  }
+  else{
+    $row=$rows[0];
+    session_start();
+    $_SESSION['user']=[
+      'id'=>$row[0]
+      ,'username'=>$row[2]
+      ,'author_id'=>$row[4]
+    ];
+    header('Location: index.php');
+    die();
+  }
 }
 ?>
 

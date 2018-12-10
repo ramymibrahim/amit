@@ -1,8 +1,11 @@
+<?php
+require_once('helper/session.php');
+$username=$_SESSION['user']['username'];
+$author_id=$_SESSION['user']['author_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -59,7 +62,8 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Clean Blog</h1>
-              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+              <span class="subheading">Welcome <?php echo $username?></span>
+              <span class="subheading"><a href="logout.php">logout</a></span>
             </div>
           </div>
         </div>
